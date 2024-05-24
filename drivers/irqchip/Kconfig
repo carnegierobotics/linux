@@ -603,4 +603,17 @@ config APPLE_AIC
 	  Support for the Apple Interrupt Controller found on Apple Silicon SoCs,
 	  such as the M1.
 
+config AMBARELLA_MSI_DETECTION
+	bool "Ambarella MSI DETECTION support"
+	depends on ARCH_AMBARELLA
+	depends on PCI_MSI && GENERIC_MSI_IRQ_DOMAIN
+	help
+	  Support for the MSI interrupt controller in the Ambarella CV7 SoC.
+
+config AMBARELLA_MSI_DETECTION_DOORBELL
+	bool "Ambarella MSI DETECTION DOORBELL support"
+	depends on ARCH_AMBARELLA
+	depends on PCI_MSI && GENERIC_MSI_IRQ_DOMAIN
+	help
+	  Allow RC sends DOORBELL to EP.
 endmenu

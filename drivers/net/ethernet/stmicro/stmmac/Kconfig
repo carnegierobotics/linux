@@ -239,6 +239,16 @@ config DWMAC_VISCONTI
 	help
 	  Support for ethernet controller on Visconti SoCs.
 
+config DWMAC_AMBARELLA
+	tristate "Ambarella dwmac support"
+	default ARCH_AMBARELLA
+	depends on OF && ARCH_AMBARELLA
+	select MFD_SYSCON
+	help
+	  Support for Ethernet controller on Ambarella CV3 and Newer SoC.
+	  This selects the Ambarella CV3 and Newer SoC glue layer support for
+	  the stmmac device driver.
+
 endif
 
 config DWMAC_INTEL

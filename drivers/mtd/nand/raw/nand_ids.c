@@ -55,6 +55,162 @@ struct nand_flash_dev nand_flash_ids[] = {
 		{ .id = {0x98, 0xdc, 0x91, 0x15, 0x76} },
 		  SZ_2K, SZ_512, SZ_128K, 0, 5, 128, NAND_ECC_INFO(8, SZ_512) },
 
+	{"TC58NVG0S3H 1G 3.3V 8-bit",
+		{ .id = {0x98, 0xf1, 0x80, 0x15, 0x72} },
+		  SZ_2K, SZ_128, SZ_128K, 0, 5, 128},
+
+	{"TC58NVG1S3H 2G 3.3V 8-bit",
+		{ .id = {0x98, 0xda, 0x90, 0x15, 0x76} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"S34ML02G2 2G 3.3V 8-bit",
+		{ .id = {0x01, 0xda, 0x90, 0x95, 0x46} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"S34ML04G2 4G 3.3V 8-bit",
+		{ .id = {0x01, 0xdc, 0x90, 0x95, 0x56} },
+		  SZ_2K, SZ_512, SZ_128K, 0, 5, 128},
+
+	{"S34MS02G2 2G 1.8V 8-bit",
+		{ .id = {0x01, 0xaa, 0x90, 0x15, 0x46} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"MT29F2G08ABAFA 2G 3.3V 8-bit",
+		{ .id = {0x2c, 0xda, 0x90, 0x95, 0x04} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"MT29F2G08ABAGA 2G 3.3V 8-bit",
+		{ .id = {0x2c, 0xda, 0x90, 0x95, 0x06} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"MT29F2G08ABBGA 2G 1.8V 8-bit",
+		{ .id = {0x2c, 0xaa, 0x90, 0x15, 0x06} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"H27U2G8F2D 2G 3.3V 8-bit",
+		{ .id = {0xad, 0xda, 0x90, 0x95, 0x46} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 5, 128},
+
+	{"JS27HU4G08SDN 4G 3.3V 8-bit",
+		{ .id = {0xad, 0xdc, 0x90, 0x95, 0x56} },
+		  SZ_2K, SZ_512, SZ_128K, 0, 5, 128},
+
+	{"JS27HU4G08SJN 4G 3.3V 8-bit",
+		{ .id = {0xad, 0xdc, 0x00, 0x05, 0x04} },
+		  SZ_2K, SZ_512, SZ_128K, 0, 5, 128},
+
+	{"MT29F2G01ABAGD SPINAND 2G 3.3V 8-bit",
+		{ .id = {0x2c, 0x24, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 2, 128},
+
+	{"MT29F2G01ABBGD SPINAND 2G 1.8V 8-bit",
+		{ .id = {0x2c, 0x25, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 2, 128},
+
+	{"MT29F1G01ABAFD SPINAND 2G 3.3V 8-bit",
+		{ .id = {0x2c, 0x14, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_128, SZ_128K, 0, 2, 128},
+
+	{"MT29F4G01ADAGD SPINAND 4G 3.3V 8-bit",
+		{ .id = {0x2c, 0x36, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_512, SZ_128K, 0, 2, 128},
+
+	{"GD5F1GQ4U SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0xd1, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 2, 128},
+
+	{"GD5F2GQ4U SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0xd2, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 2, 128},
+
+	{"GD5F2GQ5REXIH SPINAND 2Gb 1.8V 8-bit",
+		{ .id = {0xc8, 0x22, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 2, 64},
+
+	{"GD5F1GQ4UCY1G SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0xb1, 0x48} },
+		SZ_2K, SZ_128, SZ_128K, LP_OPTIONS, 3, 128},
+
+	{"GD5F2GQ4UCY1G SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0xb2, 0x48} },
+		SZ_2K, SZ_256, SZ_128K, LP_OPTIONS, 3, 128},
+
+	{"GD5F1GQ5UE SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0x51, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 2, 64},
+
+	{"GD5F2GQ5UE SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0x52, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 2, 64},
+
+	{"HYF1GQ4UBACAE SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xc9, 0x59, 0x1b} },
+		SZ_2K, SZ_128, SZ_128K, LP_OPTIONS, 3, 128},
+
+	{"W25N01GVZEIG SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xef, 0xaa, 0x21, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 3, 64},
+
+	{"W25N02KVxIR SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0xef, 0xaa, 0x22, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 3, 128},
+
+	{"W25N04KVxIR SPINAND 4Gb 3.3V 8-bit",
+		{ .id = {0xef, 0xaa, 0x23, 0x00, 0x00} },
+		SZ_2K, SZ_512, SZ_128K, 0, 3, 128},
+
+	{"W25N02JWxxIF SPINAND 2Gb 1.8V 8-bit",
+		{ .id = {0xef, 0xbf, 0x22, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 3, 64},
+
+	{"F50L1G41LB SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xC8, 0x01, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 2, 64},
+
+	{"HYF1GQ4UPACAE SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xC9, 0xA1, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 2, 128},
+
+	{"MX35LF1GE4AB SPINAND 1Gb 3.3V 8-bit",
+		{ .id = {0xc2, 0x12, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_128, SZ_128K, 0, 2, 64},
+
+	{"MX35LF2GE4AD SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0xc2, 0x26, 0x03, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 3, 64},
+
+	{"MX35LF4GE4AD SPINAND 4Gb 3.3V 8-bit",
+		{ .id = {0xc2, 0x37, 0x03, 0x00, 0x00} },
+		SZ_4K, SZ_512, SZ_256K, 0, 3, 128},
+
+	{"DS35Q2GA SPINAND 2G 3.3V 8-bit",
+		{ .id = {0xe5, 0x72, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_256, SZ_128K, 0, 2, 64},
+
+	{"DS35M4GM SPINAND 4Gb 1.8V 8-bit",
+		{ .id = {0xe5, 0xa4, 0x00, 0x00, 0x00} },
+		  SZ_2K, SZ_512, SZ_128K, 0, 2, 128},
+
+	{"MX30LF4G28AD 2G 3.3V 8-bit",
+		{ .id = {0xC2, 0xDC, 0x90, 0xA2, 0x57} },
+		  SZ_4K, SZ_512, SZ_256K, 0, 5, 256},
+
+	{"MT29F4G01ABAFD SPINAND 4G 3.3V 8-bit",
+		{ .id = {0x2c, 0x34, 0x00, 0x00, 0x00} },
+		  SZ_4K, SZ_512, SZ_256K, 0, 2, 256},
+
+	{"MT29F4G01ABBFD SPINAND 4G 1.8V 8-bit",
+		{ .id = {0x2c, 0x35, 0x00, 0x00, 0x00} },
+		  SZ_4K, SZ_512, SZ_256K, 0, 2, 256},
+
+	{"XT26G02B SPINAND 2Gb 3.3V 8-bit",
+		{ .id = {0x0B, 0xF2, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_256, SZ_128K, 0, 2, 64},
+
+	{"GD5F4GQ6U SPINAND 4Gb 3.3V 8-bit",
+		{ .id = {0xc8, 0x35, 0x00, 0x00, 0x00} },
+		SZ_2K, SZ_512, SZ_128K, 0, 2, 64},
+
 	LEGACY_ID_NAND("NAND 4MiB 5V 8-bit",   0x6B, 4, SZ_8K, SP_OPTIONS),
 	LEGACY_ID_NAND("NAND 4MiB 3,3V 8-bit", 0xE3, 4, SZ_8K, SP_OPTIONS),
 	LEGACY_ID_NAND("NAND 4MiB 3,3V 8-bit", 0xE5, 4, SZ_8K, SP_OPTIONS),
@@ -185,6 +341,7 @@ static const struct nand_manufacturer_desc nand_manufacturer_descs[] = {
 	{NAND_MFR_STMICRO, "ST Micro"},
 	{NAND_MFR_TOSHIBA, "Toshiba", &toshiba_nand_manuf_ops},
 	{NAND_MFR_WINBOND, "Winbond"},
+	{NAND_MFR_GD, "GigdDevice"},
 };
 
 /**

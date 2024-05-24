@@ -86,6 +86,18 @@ config SPI_AR934X
 	  This enables support for the SPI controller present on the
 	  Qualcomm Atheros AR934X/QCA95XX SoCs.
 
+config SPI_AMBARELLA
+        tristate "Ambarella SPI Controller"
+        depends on ARCH_AMBARELLA
+        help
+          This selects a driver for the Ambarella SPI Controller.
+
+config SPI_SLAVE_AMBARELLA
+        tristate "Ambarella SPI Slave Controller"
+        depends on ARCH_AMBARELLA
+        help
+          This selects a driver for the Ambarella SPI Slave Controller.
+
 config SPI_ATH79
 	tristate "Atheros AR71XX/AR724X/AR913X SPI controller driver"
 	depends on ATH79 || COMPILE_TEST

@@ -61,6 +61,19 @@ config HW_RANDOM_AMD
 
 	  If unsure, say Y.
 
+config HW_RANDOM_AMBARELLA
+	tristate "Ambarella HW Random Number Generator support"
+	depends on ARCH_AMBARELLA
+	default HW_RANDOM
+	help
+	  This driver provides kernel-side support for the Random Number
+	  Generator hardware found on Ambarella devices.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called ambarella-rng.
+
+	  If unsure, say Y.
+
 config HW_RANDOM_ATMEL
 	tristate "Atmel Random Number Generator support"
 	depends on ARCH_AT91 && HAVE_CLK && OF

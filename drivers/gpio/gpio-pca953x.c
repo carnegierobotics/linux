@@ -1259,7 +1259,14 @@ static const struct of_device_id pca953x_dt_ids[] = {
 
 MODULE_DEVICE_TABLE(of, pca953x_dt_ids);
 
+#if 0
 static SIMPLE_DEV_PM_OPS(pca953x_pm_ops, pca953x_suspend, pca953x_resume);
+#else
+static const struct dev_pm_ops pca953x_pm_ops = {
+	.suspend_late = pca953x_suspend,
+	.resume_early = pca953x_resume,
+};
+#endif
 
 static struct i2c_driver pca953x_driver = {
 	.driver = {

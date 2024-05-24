@@ -24,6 +24,7 @@ endif
 obj-$(CONFIG_USB_CDNS3_PCI_WRAP)		+= cdns3-pci-wrap.o
 obj-$(CONFIG_USB_CDNS3_TI)			+= cdns3-ti.o
 obj-$(CONFIG_USB_CDNS3_IMX)			+= cdns3-imx.o
+obj-$(CONFIG_USB_CDNS3_AMBARELLA)	+= cdns3-ambarella.o
 
 cdnsp-udc-pci-y					:= cdnsp-pci.o
 
@@ -35,9 +36,9 @@ obj-$(CONFIG_USB_CDNSP_PCI) 			+= cdnsp-udc-pci.o
 endif
 endif
 
-cdnsp-udc-pci-$(CONFIG_USB_CDNSP_GADGET)	+= cdnsp-ring.o cdnsp-gadget.o \
+cdns3-$(CONFIG_USB_CDNSP_GADGET)	+= cdnsp-ring.o cdnsp-gadget.o \
 						   cdnsp-mem.o cdnsp-ep0.o
 
 ifneq ($(CONFIG_USB_CDNSP_GADGET),)
-cdnsp-udc-pci-$(CONFIG_TRACING)			+= cdnsp-trace.o
+cdns3-$(CONFIG_TRACING)			+= cdnsp-trace.o
 endif

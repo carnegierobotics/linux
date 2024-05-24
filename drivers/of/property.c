@@ -1295,6 +1295,9 @@ DEFINE_SIMPLE_PROP(leds, "leds", NULL)
 DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
 DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
 DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
+#ifdef CONFIG_ARCH_AMBARELLA
+DEFINE_SIMPLE_PROP(pcie_controller, "pcie-controller", NULL)
+#endif
 
 static struct device_node *parse_gpios(struct device_node *np,
 				       const char *prop_name, int index)
@@ -1386,6 +1389,9 @@ static const struct supplier_bindings of_supplier_bindings[] = {
 	{ .parse_prop = parse_regulators, },
 	{ .parse_prop = parse_gpio, },
 	{ .parse_prop = parse_gpios, },
+#ifdef CONFIG_ARCH_AMBARELLA
+	{ .parse_prop = parse_pcie_controller, },
+#endif
 	{}
 };
 

@@ -459,6 +459,38 @@ CONFIGFS_ATTR(pci_epf_, interrupt_pin);
 CONFIGFS_ATTR(pci_epf_, msi_interrupts);
 CONFIGFS_ATTR(pci_epf_, msix_interrupts);
 
+/*
+ * For some SoCs, such as those by Ambarella, certain EP inbound
+ * translation registers may be cleared after receiving a perst signal.
+ * To address this issue, a configuration file system (CFS) entry
+ * has been added to enable manual setting of these registers.
+ *
+ */
+#if IS_ENABLED(CONFIG_ARCH_AMBARELLA)
+
+static ssize_t pci_epf_setbar_store(struct config_item *item, const char *page,
+				   size_t len)
+{
+	int ret;
+	struct pci_epf_group *epf_group = to_pci_epf_group(item);
+	struct pci_epf *epf = epf_group->epf;
+
+	ret = epf->driver->ops->set_bar(epf);
+
+	if (ret)
+		return ret;
+
+	return len;
+}
+
+static ssize_t pci_epf_setbar_show(struct config_item *item, char *page)
+{
+	return 0;
+}
+
+CONFIGFS_ATTR(pci_epf_, setbar);
+#endif
+
 static struct configfs_attribute *pci_epf_attrs[] = {
 	&pci_epf_attr_vendorid,
 	&pci_epf_attr_deviceid,
@@ -472,6 +504,9 @@ static struct configfs_attribute *pci_epf_attrs[] = {
 	&pci_epf_attr_interrupt_pin,
 	&pci_epf_attr_msi_interrupts,
 	&pci_epf_attr_msix_interrupts,
+#if IS_ENABLED(CONFIG_ARCH_AMBARELLA)
+	&pci_epf_attr_setbar,
+#endif
 	NULL,
 };
 

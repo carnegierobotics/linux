@@ -29,6 +29,15 @@ menuconfig PWM
 
 if PWM
 
+config PWM_AMBARELLA
+	tristate "Ambarella PWM support"
+	depends on ARCH_AMBARELLA && OF
+	help
+	  Generic PWM framework driver for Ambarella chips.
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called pwm-ambarella.
+
 config PWM_SYSFS
 	bool
 	default y if SYSFS

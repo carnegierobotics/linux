@@ -346,6 +346,11 @@ config XILINX_GMII2RGMII
 	  the Reduced Gigabit Media Independent Interface(RGMII) between
 	  Ethernet physical media devices and the Gigabit Ethernet controller.
 
+config MARVELL_88Q5050
+	tristate "Marvell 88q5050 switch and PHY driver"
+	help
+	  This driver is not Marvell official release.
+
 endif # PHYLIB
 
 config MICREL_KS8995MA

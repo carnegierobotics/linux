@@ -1,0 +1,28 @@
+* RC OB
+1. RC: transfer data: =modprobe RC_rc_ob=
+2. EP: check data =modprobe EP_rc_ob=
+* RC IB
+1. EP: prepares data: =modprobe EP_rc_ib=
+2. RC: transfer and check data: =modprobe RC_rc_ib=
+* EP OB
+1. EP: transfer data: =modprobe EP_ep_ob=
+2. RC: check data: =modprobe RC_ep_ob=
+* EP IB
+1. RC: prepare data: =modprobe RC_ep_ib=
+2. EP: transfer and check data: =modprobe EP_ep_ib=
+* TEST script
+#+begin_src sh
+#!/bin/sh
+USCOUNTER="1"
+TEN="10000"
+
+while [ $USCOUNTER -le $TEN ];
+do
+   echo "load count: $USCOUNTER"
+   modprobe $1;
+   rmmod $1;
+   USCOUNTER=$(expr $USCOUNTER + 1)
+done
+#+end_src
+* TODO
+use dmaengine subsystem for udma

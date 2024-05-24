@@ -7,6 +7,10 @@
 
 #define MAX_PHYSMEM_BITS	CONFIG_ARM64_PA_BITS
 
+#ifdef CONFIG_ARCH_AMBARELLA
+#define SECTION_SIZE_BITS	CONFIG_SPARSEMEM_SECTION_SIZE_BITS
+#else
+
 /*
  * Section size must be at least 512MB for 64K base
  * page size config. Otherwise it will be less than
@@ -26,4 +30,5 @@
 #define SECTION_SIZE_BITS 27
 #endif /* CONFIG_ARM64_64K_PAGES */
 
+#endif
 #endif

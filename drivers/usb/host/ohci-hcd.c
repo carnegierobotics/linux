@@ -1246,6 +1246,11 @@ MODULE_AUTHOR (DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 MODULE_LICENSE ("GPL");
 
+#ifdef CONFIG_USB_OHCI_AMBARELLA
+#include "ohci-ambarella.c"
+#define PLATFORM_DRIVER		ohci_hcd_ambarella_driver
+#endif
+
 #if defined(CONFIG_ARCH_SA1100) && defined(CONFIG_SA1111)
 #include "ohci-sa1111.c"
 #define SA1111_DRIVER		ohci_hcd_sa1111_driver

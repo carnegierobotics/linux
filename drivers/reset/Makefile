@@ -36,4 +36,5 @@ obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
 obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
 obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
 obj-$(CONFIG_ARCH_ZYNQMP) += reset-zynqmp.o
-
+obj-$(CONFIG_RESET_AMBA_CDNS_PHY) += reset-amba-cdns-phy.o
+obj-$(CONFIG_RESET_AMBA_CDNS_EXCELSIOR) += reset-amba-cdns-excelsior.o

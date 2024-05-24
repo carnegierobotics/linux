@@ -283,6 +283,17 @@ config ADI_AXI_ADC
 	  To compile this driver as a module, choose M here: the
 	  module will be called adi-axi-adc.
 
+config AMBARELLA_ADC
+	tristate "Ambarella ADC driver"
+	depends on ARCH_AMBARELLA
+	select IIO_BUFFER
+	select IIO_TRIGGERED_BUFFER
+	help
+	  Say yes here to build support for Ambarella ADC.
+
+	  To compile this driver as a module, choose M here: the module will be
+	  called ambarella_adc.
+
 config ASPEED_ADC
 	tristate "Aspeed ADC"
 	depends on ARCH_ASPEED || COMPILE_TEST

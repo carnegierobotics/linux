@@ -555,4 +555,20 @@ config MTD_NAND_DISKONCHIP_BBTWRITE
 	  load time (assuming you build diskonchip as a module) with the module
 	  parameter "inftl_bbt_write=1".
 
+config MTD_NAND_AMBARELLA
+	tristate "Ambarella Media Soc NAND support"
+	depends on ARCH_AMBARELLA && !MTD_COMBO_NAND_AMBARELLA
+	select BCH
+	help
+	  This enables the SLC NAND flash Legacy controller on the Ambarella
+	  Media SoC.
+
+config MTD_COMBO_NAND_AMBARELLA
+	tristate "Ambarella Media Soc Combo NAND support"
+	depends on ARCH_AMBARELLA
+	select BCH
+	help
+	  This enables the SLC NAND flash Combo controller on the Ambarella
+	  Media SoC.
+
 endif # MTD_RAW_NAND

@@ -1,0 +1,50 @@
+#
+# Ambarella SoC drivers
+#
+
+config AMBARELLA_SUPPORT_GDMA
+	bool "Ambarella Enable GDMA"
+        depends on ARCH_AMBARELLA
+	default n
+	help
+	  Say y here to enable gdma
+
+config AMBARELLA_LPDDR5_ADJUST
+	bool "Ambarella adjust lpddr5 dynamically"
+	depends on ARCH_AMBARELLA
+	default n
+	help
+	  Say y here to adjust lpddr5 dynamically
+
+config AMBARELLA_EXCALIBUR_RC
+	depends on PCI && ARCH_AMBARELLA
+	select CRC32
+	bool "Ambarella EXCALIBUR RC driver"
+	help
+	   Enable this configuration option to enable the host side driver
+	   for Excalibur.
+
+config AMBARELLA_MOEMOEKYUN_RC
+	depends on PCI && ARCH_AMBARELLA
+	bool "Ambarella MOEMOEKYUN RC driver"
+	help
+	   Enable this configuration option to enable the host side driver
+	   for Moemoekyun.
+
+config AMBARELLA_NEKO_EP
+	depends on PCI && ARCH_AMBARELLA
+	tristate "Ambarella NEKO EP driver"
+	help
+	   Enable this configuration option to enable Neko.
+
+config AMBARELLA_RAINY_RC
+	depends on PCI
+	tristate "Ambarella RAINY EP driver"
+	help
+	   Enable this configuration option to enable RAINY.
+
+config AMBARELLA_BSB_RC
+	depends on PCI
+	bool "Ambarella BSB RC driver"
+	help
+	   Enable this configuration option to enable BSB.

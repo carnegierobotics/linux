@@ -84,6 +84,13 @@ config IXP4XX_TIMER
 	help
 	  Enables support for the Intel XScale IXP4xx SoC timer.
 
+config AMBARELLA_TIMER
+	bool "Ambarella timer driver"
+	select TIMER_OF
+	select CLKSRC_MMIO
+	help
+	  Enables the support for the Ambarella timer driver.
+
 config ROCKCHIP_TIMER
 	bool "Rockchip timer driver" if COMPILE_TEST
 	depends on ARM || ARM64

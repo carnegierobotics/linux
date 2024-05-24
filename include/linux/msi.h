@@ -4,6 +4,9 @@
 
 #include <linux/kobject.h>
 #include <linux/list.h>
+#ifdef CONFIG_ARCH_AMBARELLA
+#include <linux/irqdomain.h>
+#endif
 #include <asm/msi.h>
 
 /* Dummy shadow structures if an architecture does not define them */
@@ -326,8 +329,14 @@ struct msi_domain_info;
  * calling __msi_domain_alloc_irqs()/__msi_domain_free_irqs().
  */
 struct msi_domain_ops {
+#ifdef CONFIG_ARCH_AMBARELLA
+	irq_hw_number_t (*get_hwirq)(struct msi_domain_info *info,
+				     msi_alloc_info_t *arg,
+				     struct irq_fwspec *fwspec);
+#else
 	irq_hw_number_t	(*get_hwirq)(struct msi_domain_info *info,
 				     msi_alloc_info_t *arg);
+#endif
 	int		(*msi_init)(struct irq_domain *domain,
 				    struct msi_domain_info *info,
 				    unsigned int virq, irq_hw_number_t hwirq,

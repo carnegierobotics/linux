@@ -59,6 +59,7 @@ config SND_SOC_ACPI
 	tristate
 
 # All the supported SoCs
+source "sound/soc/ambarella/Kconfig"
 source "sound/soc/adi/Kconfig"
 source "sound/soc/amd/Kconfig"
 source "sound/soc/atmel/Kconfig"

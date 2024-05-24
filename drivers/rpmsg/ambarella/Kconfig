@@ -1,0 +1,30 @@
+menu "Ambarella RPMSG"
+config BLAZENET
+	tristate "Blazenet driver"
+	depends on ARCH_AMBARELLA
+	depends on RPMSG
+	depends on RPMSG_VIRTIO
+	select RPMSG_SLAVE_BUS
+	select RPMSG_AMBARELLA
+	help
+	  Say Y here to select blazenet driver. It's a virtual ethernet driver
+	  based on RPMSG
+
+config RPMSG_AMBARELLA
+	tristate "Ambarella RPMSG driver"
+	depends on RPMSG
+	select VIRTIO
+
+config RPMSG_SLAVE_NS
+	tristate "RPMSG name service announcement for slave"
+	depends on RPMSG
+	help
+	  Say Y here to enable the support of the name service announcement
+	  in slave mode
+
+config RPMSG_SLAVE_BUS
+	tristate "Virtio RPMSG bus driver for slave"
+	depends on RPMSG
+	select RPMSG_SLAVE_NS
+	select VIRTIO
+endmenu

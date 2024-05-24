@@ -378,6 +378,28 @@ config I2C_ALTERA
 	  This driver can also be built as a module.  If so, the module
 	  will be called i2c-altera.
 
+config I2C_AMBARELLA
+	tristate "Ambarella Media Soc I2C bus support"
+	depends on ARCH_AMBARELLA
+	select I2C_MUX if PLAT_AMBARELLA_SUPPORT_I2C_MUX
+	select I2C_MUX_AMBARELLA if PLAT_AMBARELLA_SUPPORT_I2C_MUX
+	help
+	  This driver supports the Ambarella Media Soc
+	  I2C Bus master controller
+
+	  This driver can also be built as a module.  If so, the module
+	  will be called ambarella-i2c.
+
+config I2C_AMBARELLA_SLAVE
+	tristate "Ambarella Media Soc I2C Slave"
+	select I2C_SLAVE
+	help
+	  If you say yes to this option, support will be included for the
+	  Ambarella Media Soc I2C slave adapter.
+
+	  This driver can also be built as a module. If so, the module
+	  will be called i2c-ambarella-slave.
+
 config I2C_ASPEED
 	tristate "Aspeed I2C Controller"
 	depends on ARCH_ASPEED || COMPILE_TEST

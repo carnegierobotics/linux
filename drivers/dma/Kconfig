@@ -64,6 +64,17 @@ config ALTERA_MSGDMA
 	help
 	  Enable support for Altera / Intel mSGDMA controller.
 
+config AMBARELLA_DMA
+	tristate "Ambarella DMA Engine System support"
+	depends on ARCH_AMBARELLA
+	select DMA_ENGINE
+	help
+	  Support the Ambarella DMA Engine. This engine is integrated into
+	  Ambarella chip.
+
+	  Say Y here if you have such a chipest.
+	  If unsure,say N.
+
 config AMBA_PL08X
 	bool "ARM PrimeCell PL080 or PL081 support"
 	depends on ARM_AMBA
@@ -630,6 +641,15 @@ config TXX9_DMAC
 	help
 	  Support the TXx9 SoC internal DMA controller.  This can be
 	  integrated in chips such as the Toshiba TX4927/38/39.
+
+config AMBARELLA_CDNS_UDMA
+	tristate "CDNS uDMA Engine support"
+	select DMA_ENGINE
+	select DMA_VIRTUAL_CHANNELS
+	depends on OF
+	depends on PCIE_CADENCE_HOST || PCIE_CADENCE_EP
+	help
+	  Support the Cadence PCIe internal DMA controller.
 
 config TEGRA20_APB_DMA
 	tristate "NVIDIA Tegra20 APB DMA support"

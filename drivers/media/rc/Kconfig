@@ -143,6 +143,17 @@ menuconfig RC_DEVICES
 
 if RC_DEVICES
 
+config IR_AMBARELLA
+	tristate "Ambarella IR remote control"
+	depends on RC_CORE
+	depends on ARCH_AMBARELLA || COMPILE_TEST
+	help
+	 Say Y here if you want to use Ambarella remote control.
+	 To compile this driver as a module, choose M here: the module will be
+	 called ir-ambarella.
+
+	 If you're not sure, select N here
+
 config RC_ATI_REMOTE
 	tristate "ATI / X10 based USB RF remote controls"
 	depends on USB

@@ -2087,6 +2087,18 @@ static int init_header(struct swsusp_info *info)
 	info->pages = snapshot_get_image_size();
 	info->size = info->pages;
 	info->size <<= PAGE_SHIFT;
+#if defined(CONFIG_ARCH_AMBARELLA) && defined(CONFIG_PM)
+	{
+		void cpu_resume_arm(void);
+		void cpu_resume(void);
+		info->magic = 0x0badbeef;
+#ifdef CONFIG_THUMB2_KERNEL
+		info->addr  = virt_to_phys(cpu_resume_arm);
+#else
+		info->addr  = virt_to_phys(cpu_resume);
+#endif
+	}
+#endif
 	return init_header_complete(info);
 }
 
@@ -2106,6 +2118,10 @@ static inline void pack_pfns(unsigned long *buf, struct memory_bitmap *bm)
 		buf[j] = memory_bm_next_pfn(bm);
 		if (unlikely(buf[j] == BM_END_OF_MAP))
 			break;
+
+#ifdef CONFIG_ARCH_AMBARELLA
+		buf[j] = __pfn_to_phys(buf[j]);
+#endif
 	}
 }
 

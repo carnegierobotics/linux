@@ -68,6 +68,9 @@ struct pci_epf_header {
 struct pci_epf_ops {
 	int	(*bind)(struct pci_epf *epf);
 	void	(*unbind)(struct pci_epf *epf);
+#if IS_ENABLED(CONFIG_ARCH_AMBARELLA)
+	int	(*set_bar)(struct pci_epf *epf);
+#endif
 	struct config_group *(*add_cfs)(struct pci_epf *epf,
 					struct config_group *group);
 };

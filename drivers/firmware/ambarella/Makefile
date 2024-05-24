@@ -1,0 +1,1 @@
+obj-$(CONFIG_ARM64) +=	ambarella_scm.o

@@ -9,6 +9,7 @@
 #include <linux/pci-epc.h>
 #include <linux/platform_device.h>
 #include <linux/sizes.h>
+#include <soc/ambarella/epf-core.h>
 
 #include "pcie-cadence.h"
 
@@ -98,7 +99,11 @@ static int cdns_pcie_ep_set_bar(struct pci_epc *epc, u8 fn, u8 vfn,
 		ctrl = CDNS_PCIE_LM_BAR_CFG_CTRL_IO_32BITS;
 	} else {
 		bool is_prefetch = !!(flags & PCI_BASE_ADDRESS_MEM_PREFETCH);
+#if defined(CONFIG_ARCH_AMBARELLA)
+		bool is_64bits = (sz > SZ_2G) || (flags & PCI_BASE_ADDRESS_MEM_TYPE_64);
+#else
 		bool is_64bits = sz > SZ_2G;
+#endif
 
 		if (is_64bits && (bar & 1))
 			return -EINVAL;
@@ -593,6 +598,25 @@ static const struct pci_epc_features cdns_pcie_epc_features = {
 	.msi_capable = true,
 	.msix_capable = true,
 	.align = 256,
+#if defined(CONFIG_ARCH_AMBARELLA)
+	.reserved_bar =  1 << BAR_1 | 1 << BAR_3 | 1 << BAR_5,
+	//.bar_prefetch =  1 << BAR_2,
+	//.bar_fixed_64bit = 1 << BAR_2,
+	.bar_fixed_size[EP_MSG_BAR] = SZ_1M, /* 32bit, used for reg. */
+	//.bar_fixed_size[0] = 512, /* 32bit, used for reg. */
+	/* FIXME:
+	 * For cv72, if the bar size is over 4M, like 8M or 16M, and
+	 * <0x0000000057c00000, 0x400000> is reserved, bar would not be
+	 * mapped correctly. Currently, EP bar allocation is via dma_alloc_coherent,
+	 * so the dma addr may not be phy addr. But I have confirm for this case,
+	 * the dma addr and phy addr are just the same via checking with devmem.
+	 * And even replace dma_alloc_coherent with ioremap would also get the same result.
+	 * So let's
+	 */
+	.bar_fixed_size[EP_MEM_BAR] = SZ_4M,
+	//.bar_fixed_size[2] = SZ_16M, /* 64bit, used as device memory. */
+	.bar_fixed_size[4] = PAGE_SIZE,
+#endif
 };
 
 static const struct pci_epc_features*

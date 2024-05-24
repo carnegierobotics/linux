@@ -477,10 +477,17 @@ int stmmac_mdio_register(struct net_device *ndev)
 		new_bus->read = &stmmac_mdio_read;
 		new_bus->write = &stmmac_mdio_write;
 		max_addr = PHY_MAX_ADDR;
+
+		if (priv->plat->mdio_read)
+			new_bus->read = priv->plat->mdio_read;
+		if (priv->plat->mdio_write)
+			new_bus->write = priv->plat->mdio_write;
 	}
 
 	if (mdio_bus_data->needs_reset)
 		new_bus->reset = &stmmac_mdio_reset;
+	if (priv->plat->mdio_reset)
+		new_bus->reset = priv->plat->mdio_reset;
 
 	snprintf(new_bus->id, MII_BUS_ID_SIZE, "%s-%x",
 		 new_bus->name, priv->plat->bus_id);

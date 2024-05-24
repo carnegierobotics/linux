@@ -78,6 +78,16 @@ config USB_CDNS3_IMX
 
 	  For example, imx8qm and imx8qxp.
 
+config USB_CDNS3_AMBARELLA
+	tristate "Cadence USB3 support on Ambarella platforms"
+	depends on ARCH_AMBARELLA || COMPILE_TEST
+	default USB_CDNS3
+	help
+	  Say 'Y' or 'M' here if you are building for Ambarella
+	  platforms that contain Cadence USB3 controller core.
+
+	  For example, CV5.
+
 endif
 
 if USB_CDNS_SUPPORT
@@ -91,9 +101,6 @@ config USB_CDNSP_PCI
 
 	  If you choose to build this driver is a dynamically linked
 	  module, the module will be called cdnsp.ko.
-endif
-
-if USB_CDNSP_PCI
 
 config USB_CDNSP_GADGET
 	bool "Cadence CDNSP device controller"
@@ -110,7 +117,7 @@ config USB_CDNSP_GADGET
 
 config USB_CDNSP_HOST
 	bool "Cadence CDNSP host controller"
-	depends on USB=y || USB=USB_CDNSP_PCI
+	depends on USB=y || USB=USB_CDNSP_PCI || ARCH_AMBARELLA
 	select USB_CDNS_HOST
 	help
 	  Say Y here to enable host controller functionality of the

@@ -1,0 +1,6 @@
+#ifndef SAMPLE_EXCALIBUR_H
+#define SAMPLE_EXCALIBUR_H
+
+#define MAX_XFER_XFER_SIZE SZ_4M
+
+#endif

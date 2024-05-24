@@ -234,6 +234,12 @@ struct plat_stmmacenet_data {
 	int (*crosststamp)(ktime_t *device, struct system_counterval_t *system,
 			   void *ctx);
 	void (*dump_debug_regs)(void *priv);
+
+	/* platform specificed */
+	int (*mdio_read)(struct mii_bus *bus, int addr, int regnum);
+	int (*mdio_write)(struct mii_bus *bus, int addr, int regnum, u16 val);
+	int (*mdio_reset)(struct mii_bus *bus);
+
 	void *bsp_priv;
 	struct clk *stmmac_clk;
 	struct clk *pclk;
@@ -247,6 +253,7 @@ struct plat_stmmacenet_data {
 	struct stmmac_axi *axi;
 	int has_gmac4;
 	bool has_sun8i;
+	bool has_ambarella;
 	bool tso_en;
 	int rss_en;
 	int mac_port_sel_speed;

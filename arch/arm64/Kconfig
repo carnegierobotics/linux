@@ -1231,9 +1231,19 @@ config ARCH_SPARSEMEM_ENABLE
 	select SPARSEMEM_VMEMMAP_ENABLE
 	select SPARSEMEM_VMEMMAP
 
+config SPARSEMEM_SECTION_SIZE_BITS
+	int "Section size bits for sparsemem usage"
+	default "28" if (ARCH_AMBARELLA && MEMORY_HOTPLUG)
+	default "30"
+	depends on SPARSEMEM
+
 config HW_PERF_EVENTS
 	def_bool y
 	depends on ARM_PMU
+
+config ARCH_MEMORY_PROBE
+	def_bool y
+	depends on MEMORY_HOTPLUG && ARCH_AMBARELLA
 
 # Supported by clang >= 7.0
 config CC_HAVE_SHADOW_CALL_STACK

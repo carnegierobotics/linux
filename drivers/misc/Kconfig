@@ -443,6 +443,14 @@ config PCI_ENDPOINT_TEST
 	   Enable this configuration option to enable the host side test driver
 	   for PCI Endpoint.
 
+config PCI_ENDPOINT_AMBA_TEST
+	depends on PCI
+	select CRC32
+	tristate "Ambarella's PCI Endpoint Test driver"
+	help
+	   Enable this configuration option to enable the host side test driver
+	   for PCI Endpoint.
+
 config XILINX_SDFEC
 	tristate "Xilinx SDFEC 16"
 	depends on HAS_IOMEM

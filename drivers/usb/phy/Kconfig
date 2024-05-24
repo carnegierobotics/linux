@@ -11,6 +11,14 @@ config USB_PHY
 #
 # USB Transceiver Drivers
 #
+config USB_AMBARELLA_PHY
+	bool "Ambarella USB PHY support"
+	depends on ARCH_AMBARELLA
+	select USB_PHY
+	help
+	  Enable this to support the Ambarella USB PHY.
+	  Ambarella USB Phy is used by either UDC or EHCI/OHCI.
+
 config AB8500_USB
 	tristate "AB8500 USB Transceiver Driver"
 	depends on AB8500_CORE

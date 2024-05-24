@@ -100,6 +100,15 @@ config ARM_HIGHBANK_CPUFREQ
 
 	  If in doubt, say N.
 
+config ARM_AMBARALLA_CPUFREQ
+	bool "Ambarella CPU Frequency Driver"
+	depends on ARCH_AMBARELLA
+	default y
+	help
+	  This adds the CPUFreq driver for Ambarella SoC.
+
+	  If in doubt, say N.
+
 config ARM_IMX6Q_CPUFREQ
 	tristate "Freescale i.MX6 cpufreq support"
 	depends on ARCH_MXC

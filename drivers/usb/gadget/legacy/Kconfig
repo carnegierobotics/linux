@@ -346,6 +346,19 @@ config USB_G_PRINTER
 	  For more information, see Documentation/usb/gadget_printer.rst
 	  which includes sample code for accessing the device file.
 
+config USB_AMB_STREAM
+	tristate "Ambarella Data Streaming Gadget"
+	depends on USB_AMBARELLA
+	select USB_LIBCOMPOSITE
+	help
+	  Gadget Ambarella Data Streaming is a single-configuration
+	  single-interface device.
+	  The driver needs two bulk-capable endpoints, and one interrupt-capable
+	  endpoint is optional. It may need special protocol that can be
+	  designed at top layer to transfer data with host.
+
+	  Say "y" to link the driver statically, or "m" to build a
+	  dynamically linked module called "g_amb_stream".
 if TTY
 
 config USB_CDC_COMPOSITE
@@ -512,6 +525,17 @@ config USB_G_WEBCAM
 
 	  Say "y" to link the driver statically, or "m" to build a
 	  dynamically linked module called "g_webcam".
+
+
+config USB_G_AMB_WEBCAM
+	tristate "Ambarella USB Webcam Gadget"
+	depends on VIDEO_DEV
+	select USB_LIBCOMPOSITE
+	select VIDEOBUF2_VMALLOC
+	select USB_F_UVC
+	help
+	  Ambarella Webcam Gadget is an extension gadget for supporting H.264
+	  and MJPG on Ambarella platform.
 
 config USB_RAW_GADGET
 	tristate "USB Raw Gadget"

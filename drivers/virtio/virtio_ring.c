@@ -2473,3 +2473,86 @@ const struct vring *virtqueue_get_vring(struct virtqueue *vq)
 EXPORT_SYMBOL_GPL(virtqueue_get_vring);
 
 MODULE_LICENSE("GPL");
+#if defined(CONFIG_RPMSG_SLAVE_BUS_MODULE) || defined(CONFIG_RPMSG_SLAVE_BUS)
+/*
+ * Copyright (C) 2012-2023 Ambarella International LP
+ */
+static inline bool slave_more_used(const struct vring_virtqueue *vq)
+{
+	return vq->last_used_idx != virtio16_to_cpu(vq->vq.vdev,
+						    vq->split.vring.avail->idx);
+}
+
+irqreturn_t vring_slave_interrupt(int irq, void *_vq)
+{
+	struct vring_virtqueue *vq = to_vvq(_vq);
+
+	if (!slave_more_used(vq)) {
+		pr_debug("virtqueue interrupt with no work for %p\n", vq);
+		return IRQ_NONE;
+	}
+
+	if (unlikely(vq->broken))
+		return IRQ_HANDLED;
+
+	/* Just a hint for performance: so it's ok that this can be racy! */
+	if (vq->event)
+		vq->event_triggered = true;
+
+	pr_debug("virtqueue callback for %p (%p)\n", vq, vq->vq.callback);
+	if (vq->vq.callback)
+		vq->vq.callback(&vq->vq);
+
+	return IRQ_HANDLED;
+}
+EXPORT_SYMBOL_GPL(vring_slave_interrupt);
+
+u64 virtqueue_slave_pick_avaid_buffer(struct virtqueue *_vq,
+				      unsigned int *len)
+{
+	u32 i;
+	u64 addr;
+	u16 last_used;
+	struct vring_virtqueue *vq = to_vvq(_vq);
+
+	if (!slave_more_used(vq)) {
+		pr_debug("No more buffers in queue\n");
+		return 0;
+	}
+
+	last_used = (vq->last_used_idx & (vq->split.vring.num - 1));
+	i = virtio32_to_cpu(_vq->vdev,
+			    vq->split.vring.avail->ring[last_used]);
+	*len = virtio32_to_cpu(_vq->vdev,
+			       vq->split.vring.desc[i].len);
+	addr = vq->split.vring.desc[i].addr;
+
+	pr_debug("available buffer %llx - %x\n", addr, *len);
+
+	return addr;
+}
+
+EXPORT_SYMBOL_GPL(virtqueue_slave_pick_avaid_buffer);
+
+int virtqueue_slave_recycle_used_buffer(struct virtqueue *_vq,
+				   unsigned int num,
+				   unsigned int len,
+				   void *data,
+				   gfp_t gfp)
+{
+	u16 used_idx;
+	struct vring_used_elem *desc;
+	struct vring_virtqueue *vq = to_vvq(_vq);
+
+	used_idx = (vq->split.vring.used->idx & (vq->split.vring.num - 1));
+	desc = &vq->split.vring.used->ring[used_idx];
+	desc->id = vq->last_used_idx & (vq->split.vring.num - 1);
+	desc->len = len;
+
+	vq->split.vring.used->idx ++;
+	vq->last_used_idx++;
+
+	return 0;
+}
+EXPORT_SYMBOL_GPL(virtqueue_slave_recycle_used_buffer);
+#endif

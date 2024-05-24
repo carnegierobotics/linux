@@ -43,6 +43,17 @@ config USB_AT91
 	   dynamically linked module called "at91_udc" and force all
 	   gadget drivers to also be dynamically linked.
 
+config USB_AMBARELLA
+	tristate "Ambarella USB Device Controller"
+	depends on ARCH_AMBARELLA
+	help
+	   Many AMBARLLA processors (such as the A2/A5S/iONE/S2...) have a
+	   full/high speed USB Device Controller.
+
+	   Say "y" to link the driver statically, or "m" to build a
+	   dynamically linked module called "ambarella_udc" and force all
+	   gadget drivers to also be dynamically linked.
+
 config USB_LPC32XX
 	tristate "LPC32XX USB Peripheral Controller"
 	depends on ARCH_LPC32XX || COMPILE_TEST

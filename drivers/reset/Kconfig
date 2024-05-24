@@ -275,6 +275,18 @@ config RESET_ZYNQ
 	help
 	  This enables the reset controller driver for Xilinx Zynq SoCs.
 
+config RESET_AMBA_CDNS_PHY
+	bool "Ambarella Cadence PHY reset Driver"
+	depends on ARCH_AMBARELLA || COMPILE_TEST
+	help
+	  This enables the Cadence PHY reset controller driver for Ambarella SoCs.
+
+config RESET_AMBA_CDNS_EXCELSIOR
+	bool "Ambarella Cadence Excelsior reset Driver"
+	depends on ARCH_AMBARELLA || COMPILE_TEST
+	help
+	  This enables the Cadence Excelsior reset controller driver for Ambarella SoCs.
+
 source "drivers/reset/sti/Kconfig"
 source "drivers/reset/hisilicon/Kconfig"
 source "drivers/reset/tegra/Kconfig"

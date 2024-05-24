@@ -1680,6 +1680,7 @@ static int __init arch_timer_acpi_init(struct acpi_table_header *table)
 TIMER_ACPI_DECLARE(arch_timer, ACPI_SIG_GTDT, arch_timer_acpi_init);
 #endif
 
+
 int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *ts,
 				 struct clocksource **cs)
 {
@@ -1711,3 +1712,8 @@ int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *ts,
 	return 0;
 }
 EXPORT_SYMBOL_GPL(kvm_arch_ptp_get_crosststamp);
+#ifdef CONFIG_ARCH_AMBARELLA
+#ifdef CONFIG_CPU_FREQ
+#include "ambarella_timer_fixup.c"
+#endif
+#endif

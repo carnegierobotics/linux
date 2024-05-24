@@ -278,14 +278,40 @@ static int msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
 {
 	struct msi_domain_info *info = domain->host_data;
 	struct msi_domain_ops *ops = info->ops;
-	irq_hw_number_t hwirq = ops->get_hwirq(info, arg);
 	int i, ret;
+#ifdef CONFIG_ARCH_AMBARELLA
+	/*
+	 * msi provide msi_alloc_info_t as arg,
+	 * but gic expect arg to be irq_fwspec.
+	 * see gic_irq_domain_alloc.
+	 *
+	 * The best fix is upstream this change when
+	 * upstreaming cv7 codes
+	 */
+	struct irq_fwspec *fwspec;
+	irq_hw_number_t hwirq;
+
+	fwspec = kmalloc(sizeof(struct irq_fwspec), GFP_KERNEL);
+	if (!fwspec)
+		return -ENOMEM;
+	if (!ops->get_hwirq) {
+		kfree(fwspec);
+		return -EINVAL;
+	}
+	hwirq = ops->get_hwirq(info, arg, fwspec);
+#else
+	irq_hw_number_t hwirq = ops->get_hwirq(info, arg);
+#endif
 
 	if (irq_find_mapping(domain, hwirq) > 0)
 		return -EEXIST;
 
 	if (domain->parent) {
-		ret = irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, arg);
+#if IS_ENABLED(CONFIG_ARCH_AMBARELLA)
+			ret = irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, fwspec);
+#else
+			ret = irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, arg);
+#endif
 		if (ret < 0)
 			return ret;
 	}
@@ -302,6 +328,9 @@ static int msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
 		}
 	}
 
+#if IS_ENABLED(CONFIG_ARCH_AMBARELLA)
+	kfree(fwspec);
+#endif
 	return 0;
 }
 
@@ -325,8 +354,14 @@ static const struct irq_domain_ops msi_domain_ops = {
 	.deactivate	= msi_domain_deactivate,
 };
 
+#ifdef CONFIG_ARCH_AMBARELLA
+static irq_hw_number_t msi_domain_ops_get_hwirq(struct msi_domain_info *info,
+						msi_alloc_info_t *arg,
+						struct irq_fwspec *fwspec)
+#else
 static irq_hw_number_t msi_domain_ops_get_hwirq(struct msi_domain_info *info,
 						msi_alloc_info_t *arg)
+#endif
 {
 	return arg->hwirq;
 }

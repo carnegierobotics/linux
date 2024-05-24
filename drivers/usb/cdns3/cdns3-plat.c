@@ -135,9 +135,11 @@ static int cdns3_plat_probe(struct platform_device *pdev)
 	ret = set_phy_power_on(cdns);
 	if (ret)
 		goto err_phy_power_on;
-
+#if IS_ENABLED(CONFIG_USB_CDNSP_GADGET)
+	cdns->gadget_init = cdnsp_gadget_init;
+#else
 	cdns->gadget_init = cdns3_gadget_init;
-
+#endif
 	ret = cdns_init(cdns);
 	if (ret)
 		goto err_cdns_init;

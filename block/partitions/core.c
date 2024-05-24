@@ -13,6 +13,7 @@
 #include <linux/blktrace_api.h>
 #include <linux/raid/detect.h>
 #include "check.h"
+#include "ambptb.h"
 
 static int (*check_part[])(struct parsed_partitions *) = {
 	/*
@@ -83,6 +84,9 @@ static int (*check_part[])(struct parsed_partitions *) = {
 #endif
 #ifdef CONFIG_SYSV68_PARTITION
 	sysv68_partition,
+#endif
+#ifdef CONFIG_AMBPTB_PARTITION
+	ambptb_partition,
 #endif
 	NULL
 };

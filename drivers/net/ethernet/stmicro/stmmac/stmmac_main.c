@@ -949,6 +949,13 @@ static void stmmac_validate(struct phylink_config *config,
 	int tx_cnt = priv->plat->tx_queues_to_use;
 	int max_speed = priv->plat->max_speed;
 
+	/**
+	 * automotive ethernet check features of phydriver
+	 * 100M : 100baseT1_Full
+	 * 1000M: reuse 1000baseT_Full
+	 */
+	phylink_set(mac_supported, 100baseT1_Full);
+
 	phylink_set(mac_supported, 10baseT_Half);
 	phylink_set(mac_supported, 10baseT_Full);
 	phylink_set(mac_supported, 100baseT_Half);
@@ -1274,6 +1281,9 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
 	struct fwnode_handle *fwnode = of_fwnode_handle(priv->plat->phylink_node);
 	int mode = priv->plat->phy_interface;
 	struct phylink *phylink;
+
+	if (priv->plat->has_ambarella)
+		priv->phylink_config.mac_managed_pm = true;
 
 	priv->phylink_config.dev = &priv->dev->dev;
 	priv->phylink_config.type = PHYLINK_NETDEV;
@@ -7481,6 +7491,8 @@ int stmmac_resume(struct device *dev)
 	}
 
 	rtnl_lock();
+	if (priv->plat->has_ambarella)
+		phy_init_hw(ndev->phydev);
 	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
 		phylink_resume(priv->phylink);
 	} else {

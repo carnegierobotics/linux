@@ -264,6 +264,13 @@ config POWER_RESET_RMOBILE
 	help
 	  Reboot support for Renesas R-Mobile and SH-Mobile SoCs.
 
+config POWER_RESET_AMBARELLA
+	bool "Ambarella SoCs reset driver"
+	depends on ARCH_AMBARELLA
+	default n
+	help
+	  Reboot support for ambarella aarch64 SoCs.
+
 config REBOOT_MODE
 	tristate
 

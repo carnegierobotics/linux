@@ -214,10 +214,13 @@ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
 		value |= MRXPEE; /* MTL RX Parser ECC */
 	if (safety_feat_cfg->mestee)
 		value |= MESTEE; /* MTL EST ECC */
+#if 0
+	/* CV3AD685 can't use this feature(VLSI-bug) */
 	if (safety_feat_cfg->mrxee)
 		value |= MRXEE; /* MTL RX FIFO ECC */
 	if (safety_feat_cfg->mtxee)
 		value |= MTXEE; /* MTL TX FIFO ECC */
+#endif
 	writel(value, ioaddr + MTL_ECC_CONTROL);
 
 	/* 2. Enable MTL Safety Interrupts */

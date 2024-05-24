@@ -13,6 +13,16 @@ config PCI_EPF_TEST
 
 	   If in doubt, say "N" to disable Endpoint test driver.
 
+config PCI_EPF_AMBA_TEST
+	tristate "Ambarella's PCI Endpoint Test driver"
+	depends on PCI_ENDPOINT
+	select CRC32
+	help
+	   Enable this configuration option to enable the device
+	   for PCI Endpoint.
+
+	   If in doubt, say "N" to disable.
+
 config PCI_EPF_NTB
 	tristate "PCI Endpoint NTB driver"
 	depends on PCI_ENDPOINT
@@ -25,3 +35,32 @@ config PCI_EPF_NTB
 	  device tree.
 
 	  If in doubt, say "N" to disable Endpoint NTB driver.
+
+config AMBARELLA_EXCALIBUR_EP
+	depends on PCI && ARCH_AMBARELLA && PCI_ENDPOINT
+	select CRC32
+	bool "Ambarella EXCALIBUR EP driver"
+	help
+	   Enable this configuration option to enable the endpoint side driver
+	   for Excalibur.
+
+config AMBARELLA_MOEMOEKYUN_EP
+	depends on PCI && ARCH_AMBARELLA && PCI_ENDPOINT
+	bool "Ambarella MOEMOEKYUN EP driver"
+	help
+	   Enable this configuration option to enable the endpoint side driver
+	   for MOEMOEKYUN.
+
+config AMBARELLA_RAINY_EP
+	depends on PCI && PCI_ENDPOINT
+	bool "Ambarella Rainy EP driver"
+	help
+	   Enable this configuration option to enable the endpoint side driver
+	   for RAINY.
+
+config AMBARELLA_BSB_EP
+	depends on PCI && PCI_ENDPOINT
+	tristate "Ambarella BSB EP driver"
+	help
+	   Enable this configuration option to enable the endpoint side driver
+	   for Bsb.

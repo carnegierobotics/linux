@@ -31,6 +31,13 @@
 
 #include "rpmsg_internal.h"
 
+#if defined(CONFIG_RPMSG_AMBARELLA_MODULE) || defined(CONFIG_RPMSG_AMBARELLA)
+/*
+ * Copyright (C) 2012-2023 Ambarella International LP
+ */
+extern u32 ambarella_rpmsg_buffer_size(void);
+#endif
+
 /**
  * struct virtproc_info - virtual remote processor state
  * @vdev:	the virtio device
@@ -899,6 +906,12 @@ static int rpmsg_probe(struct virtio_device *vdev)
 		vrp->num_bufs = MAX_RPMSG_NUM_BUFS;
 
 	vrp->buf_size = MAX_RPMSG_BUF_SIZE;
+#if defined(CONFIG_RPMSG_AMBARELLA_MODULE) || defined(CONFIG_RPMSG_AMBARELLA)
+	/*
+	 * Copyright (C) 2012-2023 Ambarella International LP
+	 */
+	vrp->buf_size = ambarella_rpmsg_buffer_size();
+#endif
 
 	total_buf_space = vrp->num_bufs * vrp->buf_size;
 

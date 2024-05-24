@@ -1485,6 +1485,11 @@ static int cdns_torrent_phy_on(struct phy *phy)
 			return ret;
 	}
 
+#if defined(CONFIG_ARCH_AMBARELLA)
+	/* PHY_PMA_CMN_CTRL1[0] will never be 1 sometime, not sure why? */
+	if (inst->phy_type == TYPE_USB)
+		return 0;
+#endif
 	/*
 	 * Wait for cmn_ready assertion
 	 * PHY_PMA_CMN_CTRL1[0] == 1
@@ -1923,6 +1928,18 @@ static int cdns_torrent_phy_init(struct phy *phy)
 
 	if (cdns_phy->nsubnodes > 1)
 		return 0;
+
+#if defined(CONFIG_ARCH_AMBARELLA)
+	/*
+	 * Configure PHY_FULLRT_DIV_CFG(0x0013U) for core clk to be at 250 mhz.
+	 * Note:
+	 * 1. PCIe core clock is derived from pma_pllclk_fullrt_ln_* which is
+	 *    500MHz according to PHY spec 9.1 and PMA spec 4.11
+	 * 2. We only have one master lane which is lane 0.
+	 */
+	regmap = cdns_phy->regmap_phy_pcs_lane_cdb[inst->mlane];
+	regmap_write(regmap, 0x0013U, 0x1111);
+#endif
 
 	/**
 	 * Spread spectrum generation is not required or supported
@@ -2911,8 +2928,10 @@ static struct cdns_torrent_vals usb_phy_pcs_cmn_vals = {
 /* USB 100 MHz Ref clk, no SSC */
 static struct cdns_reg_pairs sl_usb_100_no_ssc_cmn_regs[] = {
 	{0x0028, CMN_PDIAG_PLL1_CP_PADJ_M0},
+#if !defined(CONFIG_ARCH_AMBARELLA)
 	{0x001E, CMN_PLL1_DSM_FBH_OVRD_M0},
 	{0x000C, CMN_PLL1_DSM_FBL_OVRD_M0},
+#endif
 	{0x0003, CMN_PLL0_VCOCAL_TCTRL},
 	{0x0003, CMN_PLL1_VCOCAL_TCTRL},
 	{0x8200, CMN_CDIAG_CDB_PWRI_OVRD},

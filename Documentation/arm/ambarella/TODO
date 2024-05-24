@@ -1,0 +1,8 @@
+LEGACY issue
+- remove compatible = "ambarella,fixed-factor-clock"; and its driver, use kernel's "fixed-factor-clock" instead.
+
+TOOLCHAIN issue
+- bump dtc version of sdk to expose more warnings.
+
+EPF issue
+- implement virtio support
